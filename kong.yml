@@ -1,0 +1,33 @@
+_format_version: "3.0"
+
+consumers:
+  - username: my-client
+
+jwt_secrets:
+  - consumer: my-client
+    key: "my-issuer-key"
+    secret: "my-super-secret-key"
+
+services:
+  # ปล่อยผ่านปกติเพื่อใช้ Login
+  - name: user-service
+    url: http://user-service:8080
+    routes:
+      - name: auth-route
+        paths:
+          - /auth
+        strip_path: true
+
+  # ล็อคประตูด้วย JWT
+  - name: student-service
+    url: https://platter-handrail-thrash.ngrok-free.dev/
+    routes:
+      - name: student-route
+        paths:
+          - /students
+        strip_path: false
+    plugins:
+      - name: jwt
+        config:
+          claims_to_verify:
+            - exp

@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: userdb
+    ports:
+      - "5432:5432"
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-db
+
+  student-service:
+    build: ./student-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres-db
+
+  kong:
+    image: kong:alpine
+    environment:
+      - KONG_DATABASE=off
+      - KONG_DECLARATIVE_CONFIG=/kong/declarative/kong.yml
+      - KONG_PROXY_LISTEN=0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./kong.yml:/kong/declarative/kong.yml
+    depends_on:
+      - user-service
+      - student-service
