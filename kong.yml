@@ -39,3 +39,8 @@ services:
         paths:
           - /chaiyos
         strip_path: false
+    plugins:
+      - name: jwt
+        config:
+          claims_to_verify:
+            - exp
