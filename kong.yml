@@ -20,7 +20,7 @@ services:
 
   # ล็อคประตูด้วย JWT
   - name: student-service
-    url: https://platter-handrail-thrash.ngrok-free.dev/
+    url: http://user-service:8081
     routes:
       - name: student-route
         paths:
@@ -31,3 +31,11 @@ services:
         config:
           claims_to_verify:
             - exp
+
+  - name: chaiyos-service
+    url: https://pursuant-battered-untimed.ngrok-free.dev
+    routes:
+      - name: chaiyos-route
+        paths:
+          - /chaiyos
+        strip_path: false
