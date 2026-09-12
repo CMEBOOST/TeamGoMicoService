@@ -16,12 +16,7 @@ services:
     depends_on:
       - postgres-db
 
-  student-service:
-    build: ./student-service
-    ports:
-      - "8081:8081"
-    depends_on:
-      - postgres-db
+  
 
   kong:
     image: kong:alpine
@@ -35,4 +30,3 @@ services:
       - ./kong.yml:/kong/declarative/kong.yml
     depends_on:
       - user-service
-      - student-service

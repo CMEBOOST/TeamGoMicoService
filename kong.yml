@@ -19,18 +19,18 @@ services:
         strip_path: true
 
   # ล็อคประตูด้วย JWT
-  - name: student-service
-    url: http://user-service:8081
-    routes:
-      - name: student-route
-        paths:
-          - /students
-        strip_path: false
-    plugins:
-      - name: jwt
-        config:
-          claims_to_verify:
-            - exp
+  # - name: student-service
+  #   url: http://user-service:8081
+  #   routes:
+  #     - name: student-route
+  #       paths:
+  #         - /students
+  #       strip_path: false
+  #   plugins:
+  #     - name: jwt
+  #       config:
+  #         claims_to_verify:
+  #           - exp
 
   - name: chaiyos-service
     url: https://pursuant-battered-untimed.ngrok-free.dev
