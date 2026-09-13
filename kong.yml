@@ -44,3 +44,16 @@ services:
         config:
           claims_to_verify:
             - exp
+
+  - name: narathon-service
+    url: https://rubdown-cardstock-nearby.ngrok-free.dev
+    routes:
+      - name: narathon-route
+        paths:
+          - /narathon
+        strip_path: false
+    plugins:
+      - name: jwt
+        config:
+          claims_to_verify:
+            - exp
